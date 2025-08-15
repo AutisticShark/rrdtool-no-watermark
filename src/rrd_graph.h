@@ -42,7 +42,6 @@
 #define FORCE_UNITS_SI 0x100    /* force use of SI units in Y axis (no effect in linear graph, SI instead of E in log graph) */
 
 #define FULL_SIZE_MODE     0x200    /* -width and -height indicate the total size of the image */
-#define NO_RRDTOOL_TAG 0x400  /* disable the rrdtool tag */
 #define ALLOW_MISSING_DS 0x800  /* missing DS is not fatal */
 #define FORCE_JSONTIME 0x2000  /* add jsontime to graphv output */
 #define FORCE_UTC_TIME 0x1000   /* Work in UTC timezone instead of localtimg */

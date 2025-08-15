@@ -3255,16 +3255,6 @@ int grid_paint(
         j++;
     }
 
-    /* rrdtool 'logo' */
-    if (!(im->extra_flags & NO_RRDTOOL_TAG)) {
-        water_color = im->graph_col[GRC_FONT];
-        water_color.alpha = 0.3;
-        double    xpos =
-            im->legendposition == EAST ? im->xOriginLegendY : im->ximg - 4;
-        gfx_text(im, xpos, 5, water_color,
-                 im->text_prop[TEXT_PROP_WATERMARK].font_desc, im->tabwidth,
-                 -90, GFX_H_LEFT, GFX_V_TOP, "RRDTOOL / TOBI OETIKER");
-    }
     /* graph watermark */
     if (im->watermark && im->watermark[0] != '\0') {
         water_color = im->graph_col[GRC_FONT];
