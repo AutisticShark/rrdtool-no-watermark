@@ -3255,16 +3255,6 @@ int grid_paint(
         j++;
     }
 
-    /* rrdtool 'logo' */
-    if (!(im->extra_flags & NO_RRDTOOL_TAG)) {
-        water_color = im->graph_col[GRC_FONT];
-        water_color.alpha = 0.3;
-        double    xpos =
-            im->legendposition == EAST ? im->xOriginLegendY : im->ximg - 4;
-        gfx_text(im, xpos, 5, water_color,
-                 im->text_prop[TEXT_PROP_WATERMARK].font_desc, im->tabwidth,
-                 -90, GFX_H_LEFT, GFX_V_TOP, "RRDTOOL / TOBI OETIKER");
-    }
     /* graph watermark */
     if (im->watermark && im->watermark[0] != '\0') {
         water_color = im->graph_col[GRC_FONT];
@@ -3625,9 +3615,6 @@ int graph_size_location(
         if (im->second_axis_scale != 0) {
             Xmain -= Xylabel;
         }
-        if (!(im->extra_flags & NO_RRDTOOL_TAG)) {
-            Xmain -= Xspacing;
-        }
 
         Xmain -= Xvertical + Xvertical2;
 
@@ -3684,9 +3671,6 @@ int graph_size_location(
         }
 
         im->ximg = Xmain + Xylabel;
-        if (!(im->extra_flags & NO_RRDTOOL_TAG)) {
-            im->ximg += Xspacing;
-        }
 
         if ((im->legendposition == WEST || im->legendposition == EAST)
             && !(im->extra_flags & NOLEGEND)) {
@@ -3836,13 +3820,6 @@ int graph_size_location(
         }
         im->yOriginLegendY2 = Ytitle + (Ymain / 2);
 
-        if (!(im->extra_flags & NO_RRDTOOL_TAG)) {
-            im->xOriginTitle += Xspacing;
-            im->xOriginLegend += Xspacing;
-            im->xOriginLegendY += Xspacing;
-            im->xorigin += Xspacing;
-            im->xOriginLegendY2 += Xspacing;
-        }
         break;
     }
 
@@ -5018,7 +4995,6 @@ void rrd_graph_options(
         {"units",              LONGOPT_UNITS_SI, OPTPARSE_REQUIRED},
         {"add-jsontime",       LONGOPT_ADD_JSONTIME, OPTPARSE_NONE},
         {"alt-y-mrtg",         1000, OPTPARSE_NONE},    /* this has no effect it is just here to save old apps from crashing when they use it */
-        {"disable-rrdtool-tag",1001, OPTPARSE_NONE},
         {"right-axis",         1002, OPTPARSE_REQUIRED},
         {"right-axis-label",   1003, OPTPARSE_REQUIRED},
         {"right-axis-format",  1004, OPTPARSE_REQUIRED},
@@ -5101,9 +5077,6 @@ void rrd_graph_options(
             break;
         case 'F':
             im->extra_flags |= FORCE_RULES_LEGEND;
-            break;
-        case 1001:
-            im->extra_flags |= NO_RRDTOOL_TAG;
             break;
         case LONGOPT_UNITS_SI:
             if (im->extra_flags & FORCE_UNITS) {
